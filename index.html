@@ -51,13 +51,13 @@
         .option.wrong .opt-letter{background:#ef4444;border-color:#ef4444;color:white}
         .result-icon{position:absolute;right:1rem;font-size:1.2rem}
         footer{text-align:center;padding:4rem 2rem;color:var(--muted);font-size:.75rem;border-top:1px solid var(--border);margin-top:2rem}
-        @media(max-width:600px){header{padding:1.5rem 1rem 2rem}main{padding:1rem}.controls{flex-direction:column}.btn{width:100%}.block-header{flex-wrap:wrap}.block-progress{margin-top:.5rem;width:100%;text-align:center}.options{padding-left:1rem}}
+        @media(max-width:600px){header{padding:1.5rem 1rem 2rem}main{padding:1rem}.btn{width:100%}.block-header{flex-wrap:wrap}.block-progress{margin-top:.5rem;width:100%;text-align:center}.options{padding-left:1rem}}
         .question{opacity:0;transform:translateY(15px);animation:fadeIn .4s ease forwards}
         @keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
     </style>
 </head>
 <body>
-<header><div class="header"><span class="badge">🧠 300 Preguntas</span><h1>Test Auxiliar de <span>Geriatría</span></h1><p class="subtitle">5 Bloques • Pulse para ver la respuesta correcta</p><div class="controls"><button class="btn" onclick="shuffle()">🔀 Mezclar</button><button class="btn primary" id="revealBtn" onclick="toggleAll()">👁️ Mostrar Todas</button><button class="btn" onclick="reset()">↺ Reiniciar</button></div></div></header>
+<header><div class="header"><span class="badge">🧠 300 Preguntas</span><h1>Test Auxiliar de <span>Geriatría</span></h1><p class="subtitle">5 Bloques • Pulse para ver la respuesta correcta</p><div class="controls"><button class="btn" onclick="shuffle()">🔀 Mezclar</button><button class="btn primary" onclick="reset()">↺ Reset</button></div></div></header>
 <main id="quiz"></main>
 <footer><p>Test Auxiliar de Geriatría • 300 Preguntas</p></footer>
 <script>
@@ -97,27 +97,7 @@ function selectOption(optEl, letter){
   }
   updateProgress();
 }
-function toggleAll(){
-  allRevealed=!allRevealed;
-  document.querySelectorAll('.question').forEach((q,i)=>{
-    setTimeout(()=>{
-      if(allRevealed){
-        q.classList.add('revealed');
-        const qId=parseInt(q.dataset.id);
-        const qData=data.flatMap(b=>b.questions).find(qq=>qq.id===qId);
-        q.querySelectorAll('.option').forEach((opt,idx)=>{
-          const letter=['A','B','C','D'][idx];
-          if(letter===qData.c)opt.classList.add('correct');
-        });
-      }else{
-        q.classList.remove('revealed');
-        q.querySelectorAll('.option').forEach(opt=>{opt.classList.remove('correct','wrong','selected');const icon=opt.querySelector('.result-icon');if(icon)icon.remove();});
-      }
-    },i*10);
-  });
-  document.getElementById('revealBtn').textContent=allRevealed?'🙈 Ocultar':'👁️ Mostrar Todas';
-  setTimeout(updateProgress,200);
-}
+
 function shuffle(){
   document.querySelectorAll('.block').forEach(b=>{
     const container=b.querySelector('.questions-container');
@@ -130,7 +110,6 @@ function shuffle(){
 }
 function reset(){
   allRevealed=false;
-  document.getElementById('revealBtn').textContent='👁️ Mostrar Todas';
   document.querySelectorAll('.question').forEach(q=>{
     q.classList.remove('revealed');
     q.querySelectorAll('.option').forEach(opt=>{
