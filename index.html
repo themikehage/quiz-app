@@ -15,7 +15,7 @@
         h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,6vw,3rem);font-weight:400;margin-bottom:.5rem}
         h1 span{font-style:italic;color:var(--accent)}
         .subtitle{color:var(--muted);font-size:.85rem;margin-bottom:2rem}
-        .controls{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .controls{display:flex;flex-direction:column;gap:.75rem;align-items:center}
         .btn{padding:.75rem 1.5rem;font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;border:2px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:all .3s ease;position:relative;overflow:hidden}
         .btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateY(100%);transition:transform .3s ease;z-index:-1}
         .btn:hover::before{transform:translateY(0)}
